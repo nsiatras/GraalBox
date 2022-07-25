@@ -36,7 +36,11 @@ public class GraalBox
 
     public static void main(String[] args) throws IOException
     {
-        HTTPServer server = new HTTPServer();
+        String serverIPAddress = args.length == 0 ? "" : args[0];
+        int serverPort = args.length == 0 ? 28888 : Integer.parseInt(args[1]);
+
+        // Start the GraalBox HTTP Server
+        HTTPServer server = new HTTPServer(serverIPAddress, serverPort);
         server.Start();
     }
 
