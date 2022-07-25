@@ -22,26 +22,41 @@
  * SOFTWARE.
  *
  */
-package graalbox;
+package graalbox.Core.AppInstance;
 
-import graalbox.HTTPServer.HTTPServer;
-import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
 
 /**
  *
  * @author Nikos Siatras
  */
-public class GraalBox
+public class AppInstance
 {
 
-    public static void main(String[] args) throws IOException
+    static
     {
-        String serverIPAddress = args.length == 0 ? "" : args[0];
-        int serverPort = args.length == 0 ? 28888 : Integer.parseInt(args[1]);
 
-        // Start the GraalBox HTTP Server
-        HTTPServer server = new HTTPServer(serverIPAddress, serverPort);
-        server.Start();
     }
 
+    public static boolean isGraalBoxAlreadyRunning()
+    {
+        try
+        {
+            RandomAccessFile randomFile = new RandomAccessFile("single.class", "rw");
+
+            FileChannel channel = randomFile.getChannel();
+
+            if (channel.tryLock() == null)
+            {
+                return true;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.toString());
+        }
+
+        return false;
+    }
 }
