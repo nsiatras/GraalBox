@@ -24,6 +24,9 @@
  */
 package graalbox;
 
+import graalbox.HTTPServer.HTTPServer;
+import java.io.IOException;
+
 /**
  *
  * @author Nikos Siatras
@@ -31,10 +34,10 @@ package graalbox;
 public class GraalBox
 {
 
-    
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
-        // TODO code application logic here
+        HTTPServer server = new HTTPServer();
+        server.Start();
     }
 
 }
